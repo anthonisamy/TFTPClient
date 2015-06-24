@@ -17,9 +17,9 @@ public class JsumImplement {
 	Thread thread=new Thread(threadedclass);
 	//threadedclass.run();
 	thread.start();
-	UdpClientThread udpClientThread=new UdpClientThread();
+	/*UdpClientThread udpClientThread=new UdpClientThread();
 	Thread updThread=new Thread(udpClientThread);
-	updThread.start();
+	updThread.start();*/
 
 	}
 }

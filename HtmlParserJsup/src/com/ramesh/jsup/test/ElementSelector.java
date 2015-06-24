@@ -22,12 +22,14 @@ public class ElementSelector {
 	private String comment;
 	private String valueOfId;
 	private String idFromWeb;
+	private String valueOfClass;
 
 	public void SelectElements(String holdMeId) {
 		try {
 
 			ThreadedClass threadedClass = new ThreadedClass();
 			IdComparison compareme = new IdComparison();
+			StringProcessing stringProcessing=new StringProcessing();
 			logger = Logger.getRootLogger();
 			BasicConfigurator.configure();
 			PatternLayout layout = new PatternLayout();
@@ -76,6 +78,7 @@ public class ElementSelector {
 					Element test = listsofitems.select("li[id=" + holdme + "]")
 							.first();
 					valueOfId = test.attr("id").toString();
+					valueOfClass=test.attr("class");
 
 					File file = new File("G:\\semanticWebProject\\logger.log");
 					BufferedWriter writer = new BufferedWriter(
@@ -84,11 +87,7 @@ public class ElementSelector {
 					time = test.select("em").text();
 					comment = test.select("p").text();
 
-					/*
-					 * logger.info("time:" + time + "\t Commentary:" + comment +
-					 * "ID VALUE TO TEST:" + holdme + "VALUE OF ID:" +
-					 * valueOfId);
-					 */
+					stringProcessing.FindKeyEvent(valueOfClass,comment,time);
 					JsumImplement.blockingQueue.put(comment);
 					System.out.println("time:" + time + "\t Commentary:"
 							+ comment + "ID VALUE TO TEST:" + holdme

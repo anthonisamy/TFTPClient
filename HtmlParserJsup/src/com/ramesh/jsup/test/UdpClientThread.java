@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 
 public class UdpClientThread implements Runnable {
 
@@ -25,21 +27,34 @@ public class UdpClientThread implements Runnable {
 				System.out.println("UDP Client Thread Started");
 				Message = JsumImplement.blockingQueue.take();
 				byte[] BUFFER = Message.getBytes();
-
+				InetSocketAddress address=new InetSocketAddress(IPADDRESS,PORT );
 				// Send Message to Server
-				DatagramPacket SENDPACKET = new DatagramPacket(BUFFER,
-						BUFFER.length, IPADDRESS, PORT);
-				SOCK.send(SENDPACKET);
+				try {
+					SOCK.bind(address);
+					
+					if(SOCK.isConnected()){
+						DatagramPacket SENDPACKET = new DatagramPacket(BUFFER,
+								BUFFER.length, IPADDRESS, PORT);
+						SOCK.send(SENDPACKET);
+						byte[] RCVBUFFER = new byte[1024];
+						DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
+								RCVBUFFER.length);
+						SOCK.receive(RCVPACKET);
+						String receivemsg = new String(RCVPACKET.getData(), 0,
+								RCVPACKET.getData().length);
 
-				// Receiving Reply From the server
-				byte[] RCVBUFFER = new byte[1024];
-				DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
-						RCVBUFFER.length);
-				SOCK.receive(RCVPACKET);
-				String receivemsg = new String(RCVPACKET.getData(), 0,
-						RCVPACKET.getData().length);
+						System.err.println(receivemsg.trim());
+					}
+					else{
+						System.out.println("Socket Connection Failed!!");
+					}
 
-				System.err.println(receivemsg.trim());
+					// Receiving Reply From the server
+					
+				} catch (Exception ex) {
+
+				}
+
 				// close socket
 				SOCK.close();
 			}
