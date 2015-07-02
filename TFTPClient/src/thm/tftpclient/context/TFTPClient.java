@@ -11,12 +11,15 @@ public class TFTPClient {
 	TFTPClientState get;
 	TFTPClientState put;
 	TFTPClientState error;
+	TFTPClientState clientState;
 
 	public TFTPClient() {
 		ready = new readyState(this);
 		get = new getState(this);
 		put = new putState(this);
 		error=new errorState(this);
+		
+		clientState=ready;
 
 	}
 }
