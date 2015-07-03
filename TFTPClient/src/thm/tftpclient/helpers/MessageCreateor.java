@@ -18,17 +18,20 @@ public class MessageCreateor {
 		return REQUEST;
 		
 	}
-	byte[] createData(){
-		return null;
+	public void processData(byte[] RCVDMSG){
+		
 	}
-	byte[] createAck(){
-		return null;
+	public void handleAck(byte[] RCVDMSG){
+		
 	}
 	public  static  byte[] upcodeEncoder(int opcode){
 		byte[] mybyte=new byte[2];
 		mybyte[0]=(byte)((opcode>>8)&0xff);
 		mybyte[1]=(byte)(opcode&0xff);
 		return mybyte;
+		
+	}
+	public void handleError(byte[] RCVDMSG){
 		
 	}
 	

@@ -15,8 +15,10 @@ public class getState implements TFTPClientState {
 	private static int opcode = 1;
 	DatagramSocket SOCKET;
 	SocketClient mySockClient;
+	private byte[] RCVBUFFER = new byte[512];
 
 	private byte[] message = new byte[512];
+	MessageCreateor messageCreator=new MessageCreateor();
 
 	public getState(TFTPClient client) {
 		tftpClient = client;
@@ -25,12 +27,11 @@ public class getState implements TFTPClientState {
 	@Override
 	public void upload() {
 
-		this.doRequestProcessing();
 	}
 
 	@Override
 	public void download() {
-		// TODO Auto-generated method stub
+		this.doRequestProcessing();
 
 	}
 
@@ -47,13 +48,44 @@ public class getState implements TFTPClientState {
 		message = MessageCreateor.createRequestMessage(fileName, opcode);
 
 		try {
-			DatagramPacket PACKET = new DatagramPacket(message, message.length);
+			DatagramPacket SNDPACKET = new DatagramPacket(message,
+					message.length);
+			DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
+					RCVBUFFER.length);
 			mySockClient = new SocketClient();
 			SOCKET = mySockClient.CreateConnection();
 			if (SOCKET != null) {
-				SOCKET.send(PACKET);
-			}
-			else{
+				SOCKET.send(SNDPACKET);
+				SOCKET.receive(RCVPACKET);
+				if (RCVPACKET != null) {
+					RCVBUFFER = RCVPACKET.getData();
+					if (RCVBUFFER != null) {
+						int opcode = RCVBUFFER[1];
+						switch (opcode) {
+						/*case 1:
+							break;
+
+						case 2:
+							break;*/
+						//Data
+						case 3:
+							messageCreator.processData(RCVBUFFER);
+							break;
+							//ACK
+						case 4:
+							messageCreator.handleAck(RCVBUFFER);
+							break;
+							//ERROR
+						case 5:
+							messageCreator.handleError(RCVBUFFER);
+							tftpClient.setClientState(tftpClient.getErrorState());
+							break;
+						default:
+							break;
+						}
+					}
+				}
+			} else {
 				tftpClient.setClientState(tftpClient.getErrorState());
 			}
 		} catch (IOException ex) {
