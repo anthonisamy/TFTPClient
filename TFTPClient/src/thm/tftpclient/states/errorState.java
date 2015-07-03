@@ -10,13 +10,13 @@ public class errorState implements TFTPClientState {
 	}
 
 	@Override
-	public void Upload(byte[] data) {
+	public void upload(byte[] data) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void Download(byte[] data) {
+	public void download(byte[] data) {
 		// TODO Auto-generated method stub
 
 	}
@@ -25,6 +25,12 @@ public class errorState implements TFTPClientState {
 	public void handleError() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void doRequestProcessing() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
