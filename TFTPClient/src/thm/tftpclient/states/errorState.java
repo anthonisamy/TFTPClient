@@ -3,6 +3,7 @@ package thm.tftpclient.states;
 import thm.tftpclient.context.TFTPClient;
 import thm.tftpclient.state.TFTPClientState;
 
+
 public class errorState implements TFTPClientState {
 	TFTPClient tftpClient;
 	public errorState(TFTPClient client) {
@@ -28,7 +29,8 @@ public class errorState implements TFTPClientState {
 	}
 
 	@Override
-	public void doRequestProcessing() {
+	public byte[] createRequestPacket() {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

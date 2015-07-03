@@ -1,10 +1,10 @@
 package thm.tftpclient.state;
 
-import java.io.IOException;
+
 
 
 public interface TFTPClientState {
-	void doRequestProcessing();
+	byte[] createRequestPacket();
 
 	void upload();
 

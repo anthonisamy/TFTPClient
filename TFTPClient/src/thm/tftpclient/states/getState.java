@@ -3,6 +3,7 @@ package thm.tftpclient.states;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.util.Scanner;
 
 import thm.tftpclient.context.TFTPClient;
 import thm.tftpclient.helpers.MessageCreateor;
@@ -16,6 +17,8 @@ public class getState implements TFTPClientState {
 	DatagramSocket SOCKET;
 	SocketClient mySockClient;
 	private byte[] RCVBUFFER = new byte[512];
+	Scanner scanner=new Scanner(System.in);
+	
 
 	private byte[] message = new byte[512];
 	MessageCreateor messageCreator=new MessageCreateor();
@@ -31,7 +34,7 @@ public class getState implements TFTPClientState {
 
 	@Override
 	public void download() {
-		this.doRequestProcessing();
+		this.createRequestPacket();
 
 	}
 
@@ -42,22 +45,24 @@ public class getState implements TFTPClientState {
 	}
 
 	@Override
-	public void doRequestProcessing() {
+	public byte[] createRequestPacket() {
 		System.out.println("Please enter the file to Download:");
-
+fileName=scanner.nextLine();
 		message = MessageCreateor.createRequestMessage(fileName, opcode);
 
 		try {
-			DatagramPacket SNDPACKET = new DatagramPacket(message,
-					message.length);
-			DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
-					RCVBUFFER.length);
 			mySockClient = new SocketClient();
 			SOCKET = mySockClient.CreateConnection();
-			if (SOCKET != null) {
+			DatagramPacket SNDPACKET = new DatagramPacket(message,
+					message.length);
+			System.err.println(SOCKET.getInetAddress());
+			System.err.println(SOCKET.getPort());
+			
 				SOCKET.send(SNDPACKET);
+				DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
+						RCVBUFFER.length);
 				SOCKET.receive(RCVPACKET);
-				if (RCVPACKET != null) {
+					if (RCVPACKET != null) {
 					RCVBUFFER = RCVPACKET.getData();
 					if (RCVBUFFER != null) {
 						int opcode = RCVBUFFER[1];
@@ -86,12 +91,11 @@ public class getState implements TFTPClientState {
 						}
 					}
 				}
-			} else {
-				tftpClient.setClientState(tftpClient.getErrorState());
-			}
+			
 		} catch (IOException ex) {
-
+System.err.println(ex.getMessage());
 		}
+		return RCVBUFFER;
 
 	}
 

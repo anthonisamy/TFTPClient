@@ -6,26 +6,28 @@ import java.net.InetAddress;
 
 public class SocketClient {
 	private static DatagramSocket SOCKET = null;
-	private static int PORT = 69;
-	private  static String IP = "212.201.29.100";
+	private static final int PORT = 976;
+	
+	//private  static String IP = "212.201.29.100";
 	String msg = "test message";
 	byte[] BUFFER = msg.getBytes();
 
 	public  DatagramSocket CreateConnection() {
 		try {
-			InetAddress IPADDRESS = InetAddress.getByName(IP);
-			SOCKET = new DatagramSocket(PORT, IPADDRESS);
+			InetAddress IP=InetAddress.getByName("localhost");
+		
+			SOCKET=new DatagramSocket();
+			SOCKET.connect(IP, PORT);
 			
-			// DatagramPacket PACKET=new DatagramPacket(BUFFER, BUFFER.length,
-			// IPADDRESS, PORT);
-			if (SOCKET.isConnected()) {
-				//SOCKET.send(PACKET);
+			if (SOCKET!=null) {
+				
 				return SOCKET;
 			}
 
 			return null;
 
 		} catch (Exception ex) {
+			System.err.println(ex.getMessage());
 			return null;
 		}
 		// return SOCKET;

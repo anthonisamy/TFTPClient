@@ -28,7 +28,8 @@ public class putState implements TFTPClientState {
 	}
 
 	@Override
-	public void doRequestProcessing() {
+	public byte[] createRequestPacket() {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
