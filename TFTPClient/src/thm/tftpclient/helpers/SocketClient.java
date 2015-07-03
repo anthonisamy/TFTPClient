@@ -1,25 +1,25 @@
 package thm.tftpclient.helpers;
 
-import java.net.DatagramPacket;
+
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class SocketClient {
-	DatagramSocket SOCKET = null;
-	int PORT = 69;
-	String IP = "212.201.29.100";
+	private static DatagramSocket SOCKET = null;
+	private static int PORT = 69;
+	private  static String IP = "212.201.29.100";
 	String msg = "test message";
 	byte[] BUFFER = msg.getBytes();
 
-	DatagramSocket CreateConnection() {
+	public  DatagramSocket CreateConnection() {
 		try {
 			InetAddress IPADDRESS = InetAddress.getByName(IP);
 			SOCKET = new DatagramSocket(PORT, IPADDRESS);
-			DatagramPacket PACKET = new DatagramPacket(BUFFER, BUFFER.length);
+			
 			// DatagramPacket PACKET=new DatagramPacket(BUFFER, BUFFER.length,
 			// IPADDRESS, PORT);
 			if (SOCKET.isConnected()) {
-				SOCKET.send(PACKET);
+				//SOCKET.send(PACKET);
 				return SOCKET;
 			}
 
