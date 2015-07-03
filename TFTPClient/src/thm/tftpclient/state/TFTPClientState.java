@@ -1,11 +1,12 @@
 package thm.tftpclient.state;
 
+
 public interface TFTPClientState {
 	void doRequestProcessing();
 
-	void upload(byte[] data);
+	void upload();
 
-	void download(byte[] data);
+	void download();
 
 	void handleError();
 }

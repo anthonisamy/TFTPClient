@@ -10,14 +10,14 @@ public class readyState implements TFTPClientState {
 	}
 
 	@Override
-	public void upload(byte[] data) {
-		// TODO Auto-generated method stub
+	public void upload() {
+		tftpClient.setClientState(tftpClient.getPutState());
 
 	}
 
 	@Override
-	public void download(byte[] data) {
-		// TODO Auto-generated method stub
+	public void download() {
+		tftpClient.setClientState(tftpClient.getGetState());
 
 	}
 

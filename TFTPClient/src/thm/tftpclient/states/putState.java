@@ -10,13 +10,13 @@ public class putState implements TFTPClientState {
 	}
 
 	@Override
-	public void upload(byte[] data) {
+	public void upload() {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void download(byte[] data) {
+	public void download() {
 		// TODO Auto-generated method stub
 
 	}

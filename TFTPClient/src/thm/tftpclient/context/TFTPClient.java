@@ -7,19 +7,48 @@ import thm.tftpclient.states.putState;
 import thm.tftpclient.states.readyState;
 
 public class TFTPClient {
-	TFTPClientState ready;
-	TFTPClientState get;
-	TFTPClientState put;
-	TFTPClientState error;
+	TFTPClientState readyState;
+	TFTPClientState getState;
+	TFTPClientState putState;
+	TFTPClientState errorState;
+
 	TFTPClientState clientState;
 
 	public TFTPClient() {
-		ready = new readyState(this);
-		get = new getState(this);
-		put = new putState(this);
-		error=new errorState(this);
+		readyState = new readyState(this);
+		getState = new getState(this);
+		putState = new putState(this);
+		errorState=new errorState(this);
 		
-		clientState=ready;
+		clientState=readyState;
 
 	}
+	public void get(){
+		clientState.download();
+	}
+	public void put(){
+		clientState.upload();
+	}
+	
+	public void setClientState(TFTPClientState clientState) {
+		this.clientState = clientState;
+	}
+
+	public TFTPClientState getReadyState() {
+		return readyState;
+	}
+
+	public TFTPClientState getGetState() {
+		return getState;
+	}
+
+	public TFTPClientState getPutState() {
+		return putState;
+	}
+
+	public TFTPClientState getErrorState() {
+		return errorState;
+	}
+
+	
 }

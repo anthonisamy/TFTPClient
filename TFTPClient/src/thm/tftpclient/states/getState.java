@@ -7,16 +7,17 @@ public class getState implements TFTPClientState {
 	TFTPClient tftpClient;
 
 	public getState(TFTPClient client) {
-		tftpClient=client;
-	}
-	@Override
-	public void upload(byte[] data) {
-		// TODO Auto-generated method stub
-
+		tftpClient = client;
 	}
 
 	@Override
-	public void download(byte[] data) {
+	public void upload() {
+		
+		this.doRequestProcessing();
+	}
+
+	@Override
+	public void download() {
 		// TODO Auto-generated method stub
 
 	}
@@ -26,10 +27,10 @@ public class getState implements TFTPClientState {
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
 	public void doRequestProcessing() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Please enter the file to Download:");
 	}
 
 }
