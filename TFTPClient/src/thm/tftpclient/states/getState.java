@@ -69,6 +69,7 @@ public class getState implements TFTPClientState {
 							break;*/
 						//Data
 						case 3:
+							System.out.println("hello");
 							messageCreator.processData(RCVBUFFER);
 							break;
 							//ACK
