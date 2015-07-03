@@ -10,10 +10,10 @@ public class MessageCreateor {
 		byte[] fileNameByte=fileName.getBytes();
 		byte[] modeByte=mode.getBytes();
 		System.arraycopy(opcode, 0, REQUEST, 0, opcode.length);
-		System.arraycopy(fileNameByte, 0, REQUEST, opcode.length+1, fileNameByte.length);//check
+		System.arraycopy(fileNameByte, 0, REQUEST, opcode.length, fileNameByte.length);//check
 		position=opcode.length+fileName.length()+1;
 		REQUEST[position]=0;
-		System.arraycopy(modeByte, 0, REQUEST, position+1, modeByte.length);
+		System.arraycopy(modeByte, 0, REQUEST, position, modeByte.length);
 		position=position+modeByte.length+1;
 		REQUEST[position]=0;
 		return REQUEST;

@@ -55,9 +55,7 @@ fileName=scanner.nextLine();
 			SOCKET = mySockClient.CreateConnection();
 			DatagramPacket SNDPACKET = new DatagramPacket(message,
 					message.length);
-			System.err.println(SOCKET.getInetAddress());
-			System.err.println(SOCKET.getPort());
-			
+				
 				SOCKET.send(SNDPACKET);
 				DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
 						RCVBUFFER.length);

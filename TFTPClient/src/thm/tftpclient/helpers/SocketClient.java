@@ -6,7 +6,7 @@ import java.net.InetAddress;
 
 public class SocketClient {
 	private static DatagramSocket SOCKET = null;
-	private static final int PORT = 976;
+	private static final int PORT = 69;
 	
 	//private  static String IP = "212.201.29.100";
 	String msg = "test message";
