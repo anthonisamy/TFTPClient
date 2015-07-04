@@ -17,9 +17,13 @@ public class TFTPClientMain {
 		try {
 			String input=bufferread.readLine();
 			if(input.equalsIgnoreCase("get")){
-				tftpClient.get();
-				tftpClient.get();
+				tftpClient.download();
+				tftpClient.download();
+				
 			
+			}
+			else if(input.equalsIgnoreCase("put")){
+				tftpClient.upload();
 			}
 		} catch (IOException e) {
 			

@@ -23,10 +23,10 @@ public class TFTPClient {
 		clientState=readyState;
 
 	}
-	public void get(){
+	public void download(){
 		clientState.download();
 	}
-	public void put(){
+	public void upload(){
 		clientState.upload();
 	}
 	

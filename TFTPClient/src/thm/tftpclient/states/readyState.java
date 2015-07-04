@@ -11,6 +11,7 @@ public class readyState implements TFTPClientState {
 
 	@Override
 	public void upload() {
+		System.out.println("Your state is changed to PUT state and you can make PUT request now.");
 		tftpClient.setClientState(tftpClient.getPutState());
 	}
 
@@ -27,11 +28,6 @@ public class readyState implements TFTPClientState {
 
 	}
 
-	@Override
-	public byte[] createRequestPacket() {
-		return null;
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }
