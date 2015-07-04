@@ -17,8 +17,8 @@ public class TFTPClientMain {
 		try {
 			String input=bufferread.readLine();
 			if(input.equalsIgnoreCase("get")){
-				tftpClient.download();
-				tftpClient.download();
+				tftpClient.download(); //Called from current state: readyState
+				tftpClient.download();	//Called from current state: getState
 				
 			
 			}
