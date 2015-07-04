@@ -1,11 +1,13 @@
 package thm.tftpclient.states;
 
 import thm.tftpclient.context.TFTPClient;
+import thm.tftpclient.helpers.MessageCreateor;
 import thm.tftpclient.state.TFTPClientState;
 
 
 public class errorState implements TFTPClientState {
 	TFTPClient tftpClient;
+	MessageCreateor messageCreateor=new MessageCreateor();
 	public errorState(TFTPClient client) {
 		tftpClient=client;
 	}
@@ -24,7 +26,7 @@ public class errorState implements TFTPClientState {
 
 	@Override
 	public void handleError() {
-		// TODO Auto-generated method stub
+		System.out.println(messageCreateor.getErrorMsg());
 
 	}
 

@@ -2,8 +2,14 @@ package thm.tftpclient.helpers;
 
 public class MessageCreateor {
 	private static String mode="Octet";
+	private static final int ackOpcode=4;
 	private static byte[] opcode=new byte[2];
 	private static byte[] REQUEST=new byte[512];
+	private byte[] blockNum=null;
+	private byte[] data=null;
+	private byte[] errorCode=null;
+	private String errorMsg=null;
+	
 	public static byte[] createRequestMessage(String fileName,int opcodeInt){
 		int position=0;
 		opcode=opcodeEncoder(opcodeInt);
@@ -21,6 +27,10 @@ public class MessageCreateor {
 		
 	}
 	public void processData(byte[] RCVDMSG){
+		blockNum=null;
+		data=null;
+		System.arraycopy(RCVDMSG, 2, blockNum, 0, 2);
+		System.arraycopy(RCVDMSG, 4, data, 0, RCVDMSG.length-4);
 		
 	}
 	public void handleAck(byte[] RCVDMSG){
@@ -34,7 +44,38 @@ public class MessageCreateor {
 		
 	}
 	public void handleError(byte[] RCVDMSG){
+		errorCode=new byte[2];
+		System.arraycopy(RCVDMSG, 2, errorCode, 0, 2);
+		int i=4;
+		int count=0;
+		while(RCVDMSG[i]!=0){
+			count++;
+		}
+		errorMsg=new String(RCVDMSG, 4, count);
+	}
+	public byte[] createAck(byte[] blockNumber){
+		byte[] ACKMSG=new byte[4];
+		opcode=opcodeEncoder(ackOpcode);
+		System.arraycopy(opcode, 0, ACKMSG, 0, 2);
+		System.arraycopy(blockNumber, 0, ACKMSG, 2, 2);
 		
+		return ACKMSG;
+		
+	}
+	public void writeToFile(byte[] data,String fileName){
+		
+	}
+	public byte[] getBlockNum() {
+		return blockNum;
+	}
+	public byte[] getData() {
+		return data;
+	}
+	public byte[] getErrorCode() {
+		return errorCode;
+	}
+	public String getErrorMsg() {
+		return errorMsg;
 	}
 	
 

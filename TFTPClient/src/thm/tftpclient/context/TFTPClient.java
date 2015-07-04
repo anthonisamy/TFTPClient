@@ -29,7 +29,9 @@ public class TFTPClient {
 	public void upload(){
 		clientState.upload();
 	}
-	
+	public void handleError(){
+		clientState.handleError();
+	}
 	public void setCurrentState(TFTPClientState clientState) {
 		this.clientState = clientState;
 	}
