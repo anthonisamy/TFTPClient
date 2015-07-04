@@ -3,6 +3,7 @@ package thm.tftpclient.states;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.SocketAddress;
 import java.util.Scanner;
 
 import thm.tftpclient.context.TFTPClient;
@@ -13,10 +14,11 @@ import thm.tftpclient.state.TFTPClientState;
 public class getState implements TFTPClientState {
 	TFTPClient tftpClient;
 	private String fileName = null;
-	private static int opcode = 1;
+	private static final int opcode = 1;
 	DatagramSocket SOCKET;
 	SocketClient mySockClient;
 	private byte[] RCVBUFFER = new byte[512];
+	private int serverPort=0;
 	Scanner scanner = new Scanner(System.in);
 
 	private byte[] message = new byte[512];
@@ -34,23 +36,32 @@ public class getState implements TFTPClientState {
 	@Override
 	public void download() {
 		// this.createRequestPacket();
+		boolean firstTime=true;
 		boolean lastpack = false;
 		System.out.println("Please enter the file Name:");
 		fileName = scanner.nextLine();
 		message = MessageCreateor.createRequestMessage(fileName, opcode);
+		mySockClient = new SocketClient();
+		mySockClient.sendToServer(message,69);
+		System.out.println("RRQ msg Created");
 		try {
-			mySockClient = new SocketClient();
-			SOCKET = mySockClient.CreateConnection();
-
+						
 			while (!lastpack) {
-				DatagramPacket SNDPACKET = new DatagramPacket(message,message.length);
-				SOCKET.send(SNDPACKET);	//RRQ sent
-				// SOCKET.setSoTimeout(3000);
-
+								
+				SOCKET=mySockClient.getSOCKET2();
+				/*if(SOCKET.isConnected())
+				{
+					System.out.println("Socket again connected"+ SOCKET.getPort());
+				}
+				//SOCKET.setSoTimeout(300*10);
+*/
 				DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
 						RCVBUFFER.length);
 				SOCKET.receive(RCVPACKET);
+				SOCKET.close();
 				if (RCVPACKET != null) {
+					serverPort=RCVPACKET.getPort();
+					System.out.println("packet received on port "+ serverPort);
 					RCVBUFFER = RCVPACKET.getData();
 					if (RCVBUFFER != null) {
 						int opcode = RCVBUFFER[1];
@@ -64,26 +75,33 @@ public class getState implements TFTPClientState {
 						case 3:
 							
 							byte[] ack = null;
-
 							messageCreator.processData(RCVBUFFER);
 							ack = messageCreator.createAck(messageCreator.getBlockNum());
 
-							String input = null;
-
-							if ((messageCreator.getBlockNum()[1] == 1)) {
+							
+							String input = "yes";
+							
+							if ((messageCreator.getBlockNum()[1] == 1) && firstTime) {
+								firstTime=false;
 								System.out.println("The First Block of data is Received and ack is created:");
 								System.out.println(RCVBUFFER);
 								System.out.println(ack);
 								System.out.println("Do you want to continue? yes/no");
+								
 								input = scanner.nextLine();
+								//message=ack;
 							}
 							if (input.equalsIgnoreCase("yes")) {
-								message=ack;
+								
+								mySockClient.sendToServer(ack, serverPort);
 								messageCreator.writeToFile(messageCreator.getData(),fileName);
 								if(RCVPACKET.getLength()<512){
 									lastpack=true;
+									messageCreator.getOut().close();
+								SOCKET.close();
 								}
 								
+								break;
 								
 								//continue;
 							} 

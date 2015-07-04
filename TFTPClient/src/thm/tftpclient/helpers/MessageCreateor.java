@@ -1,5 +1,13 @@
 package thm.tftpclient.helpers;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+
 public class MessageCreateor {
 	private static String mode="Octet";
 	private static final int ackOpcode=4;
@@ -9,6 +17,7 @@ public class MessageCreateor {
 	private byte[] data=null;
 	private byte[] errorCode=null;
 	private String errorMsg=null;
+	private FileOutputStream out=null;
 	
 	public static byte[] createRequestMessage(String fileName,int opcodeInt){
 		int position=0;
@@ -27,8 +36,8 @@ public class MessageCreateor {
 		
 	}
 	public void processData(byte[] RCVDMSG){
-		blockNum=null;
-		data=null;
+		blockNum=new byte[2];
+		data=new byte[RCVDMSG.length-4];
 		System.arraycopy(RCVDMSG, 2, blockNum, 0, 2);
 		System.arraycopy(RCVDMSG, 4, data, 0, RCVDMSG.length-4);
 		
@@ -63,7 +72,21 @@ public class MessageCreateor {
 		
 	}
 	public void writeToFile(byte[] data,String fileName){
+		File file = new File("E:\\tftpdownloads\\"+fileName);
+		try {
+			 out= new FileOutputStream(file,true);
 		
+			out.write(data);
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	//read from file or make data packet
+	public byte[] readFromFile(String fileName){
+		return null;
 	}
 	public byte[] getBlockNum() {
 		return blockNum;
@@ -76,6 +99,9 @@ public class MessageCreateor {
 	}
 	public String getErrorMsg() {
 		return errorMsg;
+	}
+	public FileOutputStream getOut() {
+		return out;
 	}
 	
 
