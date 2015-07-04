@@ -40,8 +40,7 @@ public class getState implements TFTPClientState {
 
 	@Override
 	public void handleError() {
-		// TODO Auto-generated method stub
-
+		System.out.println("I AM HRISTIJAN");
 	}
 
 	
