@@ -46,7 +46,8 @@ public class getState implements TFTPClientState {
 	
 	public byte[] createRequestPacket() {
 		System.out.println("Please enter the file to Download:");
-fileName=scanner.nextLine();
+		fileName=scanner.nextLine();
+		System.out.println("hey baby");
 		message = MessageCreateor.createRequestMessage(fileName, opcode);
 
 		try {
@@ -81,7 +82,7 @@ fileName=scanner.nextLine();
 							//ERROR
 						case 5:
 							messageCreator.handleError(RCVBUFFER);
-							tftpClient.setClientState(tftpClient.getErrorState());
+							tftpClient.setCurrentState(tftpClient.getErrorState());
 							break;
 						default:
 							break;

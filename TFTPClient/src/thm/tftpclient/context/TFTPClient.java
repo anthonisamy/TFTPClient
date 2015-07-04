@@ -30,8 +30,11 @@ public class TFTPClient {
 		clientState.upload();
 	}
 	
-	public void setClientState(TFTPClientState clientState) {
+	public void setCurrentState(TFTPClientState clientState) {
 		this.clientState = clientState;
+	}
+	public TFTPClientState getCurrentState(){
+		return clientState;
 	}
 
 	public TFTPClientState getReadyState() {

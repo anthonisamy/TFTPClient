@@ -12,13 +12,15 @@ public class readyState implements TFTPClientState {
 	@Override
 	public void upload() {
 		System.out.println("Your state is changed to PUT state and you can make PUT request now.");
-		tftpClient.setClientState(tftpClient.getPutState());
+		tftpClient.setCurrentState(tftpClient.getPutState());
+		tftpClient.getCurrentState().upload();
 	}
 
 	@Override
 	public void download() {
 		System.out.println("Your state is changed to get state and you can make get request now.");
-		tftpClient.setClientState(tftpClient.getGetState());
+		tftpClient.setCurrentState(tftpClient.getGetState());
+		tftpClient.getCurrentState().download();
 
 	}
 
