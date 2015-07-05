@@ -25,7 +25,8 @@ public class TFTPClientMain {
 					
 					}
 					if (tftpClient.getCurrentState() == tftpClient
-							.getErrorState()) {
+							.getErrorState()) 
+					{
 						tftpClient.handleError();
 					}
 

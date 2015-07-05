@@ -72,7 +72,10 @@ public class putState implements TFTPClientState {
 								System.out.println("Connection open again!");
 							}
 
-							//sent = false;
+							if(i==2){
+								System.out.println("Timeout exceeded. Program terminated.");
+								System.exit(0);
+							}
 						}
 					
 				}

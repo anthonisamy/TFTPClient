@@ -81,7 +81,10 @@ public class getState implements TFTPClientState {
 								mySockClient.sendToServer(ack, serverPort);
 								System.out.println("Packet resent!");
 								SOCKET=mySockClient.getSOCKET2();
-								System.out.println("Connection open again!");
+								}
+							if(i==2){
+									System.out.println("The program is terminated. Bye!");
+									System.exit(0);
 							}
 
 							//sent = false;
@@ -168,6 +171,7 @@ public class getState implements TFTPClientState {
 
 		} catch (IOException ex) {
 			System.err.println(ex.getMessage());
+			System.out.println();
 		}
 
 	}

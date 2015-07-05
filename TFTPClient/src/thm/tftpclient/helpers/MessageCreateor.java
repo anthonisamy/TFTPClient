@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import thm.tftpclient.context.TFTPClient;
+
 public class MessageCreateor {
 	private static String mode="Octet";
 	private static final int ackOpcode=4;
@@ -19,6 +21,7 @@ public class MessageCreateor {
 	private FileOutputStream out=null;
 	private FileInputStream input=null;
 	private byte[] ackNumber = null;
+	
 	
 	public static byte[] createRequestMessage(String fileName,int opcodeInt){
 		byte[] REQUEST=new byte[512];
@@ -78,15 +81,18 @@ public class MessageCreateor {
 		
 	}
 	public void writeToFile(byte[] data,String fileName){
-		File file = new File("E:\\tftpdownloads\\"+fileName);
+		
 		try {
+			File file = new File("E:\\tftpdownloads\\"+fileName);
 			 out= new FileOutputStream(file,true);
 		
 			out.write(data);
 			out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			System.out.println("Program terminated. Bye!");
+			System.exit(0);
+			
 		}
 		
 	}
@@ -127,20 +133,21 @@ public int byteToInt(byte[] value){
 }
 	//read from file or make data packet
 	public byte[] readFromFile(String fileName){
-		
-		 File file = new File("E:\\tftpuploads\\"+fileName);
-		 byte[]  tempData=new byte[(int)file.length()];
+
 		try {
+			 File file = new File("E:\\tftpuploads\\"+fileName);
+			 byte[]  tempData=new byte[(int)file.length()];
 			input=new FileInputStream(file);
 			input.read(tempData);
+			writeToFile(tempData, fileName);	//Checking purposes
 			input.close();
-			//tempData=Files.readAllBytes(path);
-			//input.close();
 			return tempData;
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			System.out.println("Program terminated. Bye!");
+			System.exit(0);
 			return null;
 		}
 		
