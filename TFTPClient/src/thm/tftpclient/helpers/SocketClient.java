@@ -15,32 +15,11 @@ public class SocketClient {
 	String msg = "test message";
 	byte[] BUFFER = msg.getBytes();
 
-	public  DatagramSocket CreateConnection(int port) {
-		try {
-			
-		
-			//SOCKET2=new DatagramSocket(2034,IP);
-			SOCKET=new DatagramSocket(2034);
-			//SOCKET.connect(IP, port);
-			
-			if (SOCKET!=null) {
-				
-				return SOCKET;
-			}
 
-			return null;
-
-		} catch (Exception ex) {
-			System.err.println(ex.getMessage());
-			return null;
-		}
-		// return SOCKET;
-
-	}
 	public void sendToServer(byte[] BUFFER,int port){
 		
 		try {
-			InetAddress IP=InetAddress.getByName("10.10.10.1");
+			InetAddress IP=InetAddress.getByName("localhost");
 			SOCKET2 = new DatagramSocket(2034);
 			DatagramPacket SNDPACKET = new DatagramPacket(BUFFER,BUFFER.length,IP,port);
 			SOCKET2.send(SNDPACKET);

@@ -14,7 +14,7 @@ public class TFTPClientMain {
 				System.in));
 		SocketClient SOCK=new SocketClient();
 		String choice="yes";
-		while (choice.equalsIgnoreCase("yes")) {
+			while (choice.equalsIgnoreCase("yes")) {
 			TFTPClient tftpClient = new TFTPClient();
 
 			System.out.println("What you want to do? get/put");

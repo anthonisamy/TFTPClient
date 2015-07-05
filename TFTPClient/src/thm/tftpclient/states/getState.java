@@ -15,6 +15,7 @@ import thm.tftpclient.state.TFTPClientState;
 public class getState implements TFTPClientState {
 	TFTPClient tftpClient;
 	private String fileName = null;
+	private String ipAddress=null;
 	private static final int opcode = 1;
 	DatagramSocket SOCKET;
 	SocketClient mySockClient;
