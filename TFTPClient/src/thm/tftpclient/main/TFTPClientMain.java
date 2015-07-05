@@ -21,16 +21,20 @@ public class TFTPClientMain {
 			try {
 				String input = bufferread.readLine();
 				if (input.equalsIgnoreCase("get")) {
-					tftpClient.download(); 
+					{tftpClient.download();
+					
+					}
 					if (tftpClient.getCurrentState() == tftpClient
 							.getErrorState()) {
 						tftpClient.handleError();
 					}
 
 					else {
+						System.out
+						.println("download Sucessfull!");
 
 						System.out
-								.println("download Sucessfull! Do you want to Take Another Action?yes/no");
+								.println("Do you want to Take Another Action?yes/no");
 						choice= bufferread.readLine();
 						SOCK.getSOCKET2().close();
 					}

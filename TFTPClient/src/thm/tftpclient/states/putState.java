@@ -80,6 +80,10 @@ public class putState implements TFTPClientState {
 				SOCKET.close();
 				if (RCVPACKET != null) {
 					serverPort = RCVPACKET.getPort();
+					/*if(serverPort==-1){
+						tftpClient.setCurrentState(tftpClient.getErrorState());
+						break;
+					}*/
 					System.out.println("ACK received from port " + serverPort);
 					RCVBUFFER = RCVPACKET.getData();
 					if (RCVBUFFER != null) {
@@ -90,43 +94,7 @@ public class putState implements TFTPClientState {
 
 						case 2:
 							break;
-						// Data
-						/*
-						 * case 3:
-						 * 
-						 * byte[] ack = null;
-						 * messageCreator.processData(RCVBUFFER); ack =
-						 * messageCreator
-						 * .createAck(messageCreator.getBlockNum());
-						 * 
-						 * 
-						 * String input = "yes";
-						 * 
-						 * if ((messageCreator.getBlockNum()[1] == 1) &&
-						 * firstTime) { firstTime=false; System.out.println(
-						 * "The First Block of data is Received and ack is created:"
-						 * ); System.out.println(RCVBUFFER);
-						 * System.out.println(ack); System.out.println(
-						 * "Do you want to continue? yes/no" );
-						 * 
-						 * input = scanner.nextLine(); //message=ack; } if
-						 * (input.equalsIgnoreCase("yes")) {
-						 * 
-						 * mySockClient.sendToServer(ack, serverPort);
-						 * messageCreator
-						 * .writeToFile(messageCreator.getData(),fileName);
-						 * if(RCVPACKET.getLength()<512){ lastpack=true;
-						 * messageCreator.getOut().close(); SOCKET.close(); }
-						 * 
-						 * break;
-						 * 
-						 * //continue; } else { lastpack=true; System.exit(0); }
-						 */
-						// ask user whether u want to continue
-
-						// loop now for all the remaining data packets
-						// break;
-
+						
 						// ACK
 
 						case 4:
