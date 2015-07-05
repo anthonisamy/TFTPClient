@@ -2,6 +2,8 @@ package thm.tftpclient.helpers;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,6 +20,8 @@ public class MessageCreateor {
 	private byte[] errorCode=null;
 	private String errorMsg=null;
 	private FileOutputStream out=null;
+	private FileInputStream input=null;
+	private byte[] ackNumber = null;
 	
 	public static byte[] createRequestMessage(String fileName,int opcodeInt){
 		int position=0;
@@ -42,8 +46,10 @@ public class MessageCreateor {
 		System.arraycopy(RCVDMSG, 4, data, 0, RCVDMSG.length-4);
 		
 	}
-	public void handleAck(byte[] RCVDMSG){
-		
+	public byte[] handleAck(byte[] RCVDMSG){
+		ackNumber = new byte[2];
+		System.arraycopy(RCVDMSG, 2, ackNumber, 0, 2);
+		return ackNumber;
 	}
 	public  static  byte[] opcodeEncoder(int opcode){
 		byte[] mybyte=new byte[2];
@@ -84,9 +90,60 @@ public class MessageCreateor {
 		}
 		
 	}
+	public byte[] createDataPacket(String fileName,byte[] currentBlockNumber){
+		byte data [] = readFromFile(fileName);
+		int length=data.length;
+		int totalBlockes=length/508+1;
+		
+		int block = byteToInt(currentBlockNumber);
+		if(block==totalBlockes){
+			byte[] result=new byte[4+length%totalBlockes];
+			System.arraycopy(opcode, 0, result, 0, 2);
+			System.arraycopy(currentBlockNumber, 0, result, 2, 2);
+			System.arraycopy(data, (block-1)*507, result, block*507, length%totalBlockes);
+		}
+		else{
+			byte[] result=new byte[512];
+		opcode=opcodeEncoder(ackOpcode);
+		System.arraycopy(opcode, 0, result, 0, 2);
+		System.arraycopy(currentBlockNumber, 0, result, 2, 2);
+		
+		System.arraycopy(data, (block-1)*507, result, block*507, 508);
+		}
+		
+		
+		
+		
+		return data;
+	}
+public  byte[] increment(byte[] valuea){
+		
+		 int value =  valuea[1] & 0xFF |
+		            (valuea[0] & 0xFF) << 8 ;
+		 value=value+1;
+		return opcodeEncoder(value);
+		            
+	}
+public int byteToInt(byte[] value){
+	return value[1] & 0xFF |
+     (value[0] & 0xFF) << 8 ;
+}
 	//read from file or make data packet
 	public byte[] readFromFile(String fileName){
-		return null;
+		byte[]  tempData=null;
+		File file = new File("E:\\tftpdownloads\\"+fileName);
+		try {
+			input=new FileInputStream(file);
+			input.read(tempData);
+			input.close();
+			return tempData;
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	public byte[] getBlockNum() {
 		return blockNum;
