@@ -132,7 +132,7 @@ public int byteToInt(byte[] value){
 	//read from file or make data packet
 	public byte[] readFromFile(String fileName){
 		
-		 File file = new File("E:\\tftpdownloads\\"+fileName);
+		 File file = new File("E:\\tftpuploads\\"+fileName);
 		 byte[]  tempData=new byte[(int)file.length()];
 		try {
 			input=new FileInputStream(file);

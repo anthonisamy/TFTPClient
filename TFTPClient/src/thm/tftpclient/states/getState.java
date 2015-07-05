@@ -17,7 +17,7 @@ public class getState implements TFTPClientState {
 	private static final int opcode = 1;
 	DatagramSocket SOCKET;
 	SocketClient mySockClient;
-	private byte[] RCVBUFFER = new byte[512];
+	private byte[] RCVBUFFER = new byte[516];
 	private int serverPort=0;
 	Scanner scanner = new Scanner(System.in);
 
@@ -95,7 +95,7 @@ public class getState implements TFTPClientState {
 								
 								mySockClient.sendToServer(ack, serverPort);
 								messageCreator.writeToFile(messageCreator.getData(),fileName);
-								if(RCVPACKET.getData().length<512){
+								if(RCVPACKET.getLength()<512){
 									lastpack=true;
 									messageCreator.getOut().close();
 								SOCKET.close();

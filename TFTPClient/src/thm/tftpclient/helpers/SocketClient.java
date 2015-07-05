@@ -40,7 +40,7 @@ public class SocketClient {
 	public void sendToServer(byte[] BUFFER,int port){
 		
 		try {
-			InetAddress IP=InetAddress.getByName("localhost");
+			InetAddress IP=InetAddress.getByName("10.10.10.1");
 			SOCKET2 = new DatagramSocket(2034);
 			DatagramPacket SNDPACKET = new DatagramPacket(BUFFER,BUFFER.length,IP,port);
 			SOCKET2.send(SNDPACKET);
