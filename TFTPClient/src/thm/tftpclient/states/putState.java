@@ -186,10 +186,6 @@ public class putState implements TFTPClientState {
 
 	}
 
-	public byte[] createRequestPacket() {
-		return null;
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }

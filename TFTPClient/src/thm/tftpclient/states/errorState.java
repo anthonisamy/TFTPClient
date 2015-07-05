@@ -26,7 +26,10 @@ public class errorState implements TFTPClientState {
 
 	@Override
 	public void handleError() {
-		System.out.println(messageCreateor.getErrorMsg());
+		System.out.println("Error code: "+messageCreateor.getErrorCode()[0]+""+messageCreateor.getErrorCode()[1]);
+		//System.out.println("Error code: "+messageCreateor.byteToInt(messageCreateor.getErrorCode()));
+		System.out.println("Error message: "+messageCreateor.getErrorMsg());
+		System.exit(0);
 
 	}
 

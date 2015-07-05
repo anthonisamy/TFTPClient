@@ -126,6 +126,7 @@ public class getState implements TFTPClientState {
 								messageCreator.writeToFile(messageCreator.getData(),fileName);
 								if(RCVPACKET.getLength()<512){
 									lastpack=true;
+									RCVPACKET = null;
 									messageCreator.getOut().close();
 								SOCKET.close();
 								}
@@ -135,7 +136,6 @@ public class getState implements TFTPClientState {
 								//continue;
 							} 
 							else {
-								lastpack=true;
 								System.exit(0);
 							}
 							// ask user whether u want to continue

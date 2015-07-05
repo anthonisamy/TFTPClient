@@ -18,16 +18,17 @@ public class MessageCreateor {
 	private static final int ackOpcode=4;
 	private static final int dataOpcode=3;
 	private static byte[] opcode=new byte[2];
-	private static byte[] REQUEST=new byte[512];
+	
 	private byte[] blockNum=null;
-	private byte[] data=null;
-	private byte[] errorCode=null;
-	private String errorMsg=null;
+	private   byte[] data=null;
+	private static byte[] errorCode=null;
+	private static String errorMsg=null;
 	private FileOutputStream out=null;
 	private FileInputStream input=null;
 	private byte[] ackNumber = null;
 	
 	public static byte[] createRequestMessage(String fileName,int opcodeInt){
+		byte[] REQUEST=new byte[512];
 		int position=0;
 		opcode=opcodeEncoder(opcodeInt);
 		byte[] fileNameByte=fileName.getBytes();
@@ -69,8 +70,10 @@ public class MessageCreateor {
 		int count=0;
 		while(RCVDMSG[i]!=0){
 			count++;
+			i++;
 		}
 		errorMsg=new String(RCVDMSG, 4, count);
+		System.out.println("yes");
 	}
 	public byte[] createAck(byte[] blockNumber){
 		byte[] ACKMSG=new byte[4];
