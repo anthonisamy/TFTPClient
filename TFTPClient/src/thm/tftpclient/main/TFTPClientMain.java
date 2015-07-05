@@ -5,17 +5,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import thm.tftpclient.context.TFTPClient;
+import thm.tftpclient.helpers.SocketClient;
 
 public class TFTPClientMain {
 
 	public static void main(String[] args) {
 		BufferedReader bufferread = new BufferedReader(new InputStreamReader(
 				System.in));
-		boolean choice = true;
-		while (choice) {
+		SocketClient SOCK=new SocketClient();
+		String choice="yes";
+		while (choice.equalsIgnoreCase("yes")) {
 			TFTPClient tftpClient = new TFTPClient();
 
-			System.out.println("What you want to do?");
+			System.out.println("What you want to do? get/put");
 			try {
 				String input = bufferread.readLine();
 				if (input.equalsIgnoreCase("get")) {
@@ -28,13 +30,26 @@ public class TFTPClientMain {
 					else {
 
 						System.out
-								.println("download Sucessfule! Do you want to Take Another Action?yes/no");
-						input = bufferread.readLine();
-						choice = Boolean.getBoolean(input);
+								.println("download Sucessfull! Do you want to Take Another Action?yes/no");
+						choice= bufferread.readLine();
+						SOCK.getSOCKET2().close();
 					}
 
 				} else if (input.equalsIgnoreCase("put")) {
 					tftpClient.upload();
+					if (tftpClient.getCurrentState() == tftpClient
+							.getErrorState()) {
+						tftpClient.handleError();
+					}
+
+					else {
+
+						System.out
+								.println("Upload Sucessfull! Do you want to Take Another Action?yes/no");
+						choice = bufferread.readLine();
+						SOCK.getSOCKET2().close();
+						
+					}
 				}
 			} catch (IOException e) {
 

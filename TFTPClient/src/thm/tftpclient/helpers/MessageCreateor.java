@@ -9,10 +9,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class MessageCreateor {
 	private static String mode="Octet";
 	private static final int ackOpcode=4;
+	private static final int dataOpcode=3;
 	private static byte[] opcode=new byte[2];
 	private static byte[] REQUEST=new byte[512];
 	private byte[] blockNum=null;
@@ -92,29 +96,26 @@ public class MessageCreateor {
 	}
 	public byte[] createDataPacket(String fileName,byte[] currentBlockNumber){
 		byte data [] = readFromFile(fileName);
+		byte[] result=new byte[516];
 		int length=data.length;
-		int totalBlockes=length/508+1;
+		int totalBlockes=length/512+1;
 		
 		int block = byteToInt(currentBlockNumber);
 		if(block==totalBlockes){
-			byte[] result=new byte[4+length%totalBlockes];
+			result=new byte[4+length%totalBlockes];
 			System.arraycopy(opcode, 0, result, 0, 2);
 			System.arraycopy(currentBlockNumber, 0, result, 2, 2);
-			System.arraycopy(data, (block-1)*507, result, block*507, length%totalBlockes);
+			System.arraycopy(data, (block-1)*511, result, 4, length%totalBlockes);
 		}
 		else{
-			byte[] result=new byte[512];
-		opcode=opcodeEncoder(ackOpcode);
+			
+		opcode=opcodeEncoder(dataOpcode);
 		System.arraycopy(opcode, 0, result, 0, 2);
 		System.arraycopy(currentBlockNumber, 0, result, 2, 2);
 		
-		System.arraycopy(data, (block-1)*507, result, block*507, 508);
+		System.arraycopy(data, (block-1)*511, result, 4, 512);
 		}
-		
-		
-		
-		
-		return data;
+		return result;
 	}
 public  byte[] increment(byte[] valuea){
 		
@@ -130,12 +131,15 @@ public int byteToInt(byte[] value){
 }
 	//read from file or make data packet
 	public byte[] readFromFile(String fileName){
-		byte[]  tempData=null;
-		File file = new File("E:\\tftpdownloads\\"+fileName);
+		
+		 File file = new File("E:\\tftpdownloads\\"+fileName);
+		 byte[]  tempData=new byte[(int)file.length()];
 		try {
 			input=new FileInputStream(file);
 			input.read(tempData);
 			input.close();
+			//tempData=Files.readAllBytes(path);
+			//input.close();
 			return tempData;
 			
 		} catch (Exception e) {

@@ -95,7 +95,7 @@ public class getState implements TFTPClientState {
 								
 								mySockClient.sendToServer(ack, serverPort);
 								messageCreator.writeToFile(messageCreator.getData(),fileName);
-								if(RCVPACKET.getLength()<512){
+								if(RCVPACKET.getData().length<512){
 									lastpack=true;
 									messageCreator.getOut().close();
 								SOCKET.close();
