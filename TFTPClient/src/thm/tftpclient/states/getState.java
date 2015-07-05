@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketAddress;
+import java.net.SocketTimeoutException;
 import java.util.Scanner;
 
 import thm.tftpclient.context.TFTPClient;
@@ -57,7 +58,35 @@ public class getState implements TFTPClientState {
 */
 				DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
 						RCVBUFFER.length);
-				SOCKET.receive(RCVPACKET);
+				for(int i=0;i<3;i++){
+					SOCKET.setSoTimeout(5000);
+					
+						try {
+							
+							SOCKET.receive(RCVPACKET);
+							break;
+							
+						} catch (SocketTimeoutException ex) {
+							System.out.println("Timeout occur!");
+							if (messageCreator.getBlockNum()[1] == 1 && firstTime) {
+								mySockClient.sendToServer(message, 69);
+								mySockClient.getSOCKET2().close();
+							} else {
+								SOCKET.close();
+								byte[] ack = null;
+								//SNDBUFFER = messageCreator.createDataPacket(fileName, currentBlockNumber);
+								//mySockClient.sendToServer(SNDBUFFER, serverPort);
+								ack = messageCreator.createAck(messageCreator.getBlockNum());
+								mySockClient.sendToServer(ack, serverPort);
+								System.out.println("Packet resent!");
+								SOCKET=mySockClient.getSOCKET2();
+								System.out.println("Connection open again!");
+							}
+
+							//sent = false;
+						}
+					
+				}
 				SOCKET.close();
 				if (RCVPACKET != null) {
 					serverPort=RCVPACKET.getPort();
