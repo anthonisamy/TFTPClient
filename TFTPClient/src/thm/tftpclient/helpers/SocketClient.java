@@ -19,7 +19,7 @@ public class SocketClient {
 	public void sendToServer(byte[] BUFFER,int port){
 		
 		try {
-			InetAddress IP=InetAddress.getByName("10.10.10.1");
+			InetAddress IP=InetAddress.getByName("localhost");
 			SOCKET2 = new DatagramSocket(2034);
 			DatagramPacket SNDPACKET = new DatagramPacket(BUFFER,BUFFER.length,IP,port);
 			SOCKET2.send(SNDPACKET);
@@ -27,7 +27,8 @@ public class SocketClient {
 			//SOCKET2.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
+			System.exit(0);
 		}	//RRQ sent
 		//SOCKET2.close();
 		//return null;

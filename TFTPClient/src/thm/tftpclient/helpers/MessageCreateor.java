@@ -100,22 +100,23 @@ public class MessageCreateor {
 		byte data [] = readFromFile(fileName);
 		byte[] result=new byte[516];
 		int length=data.length;
-		int totalBlockes=length/512+1;
+		int totalBlockes=(length/512)+1;
+		int reserveBlocks=length%512;
 		
 		int block = byteToInt(currentBlockNumber);
 		if(block==totalBlockes){
-			result=new byte[4+length%totalBlockes];
+			result=new byte[4+length%512+1];
 			System.arraycopy(opcode, 0, result, 0, 2);
 			System.arraycopy(currentBlockNumber, 0, result, 2, 2);
-			System.arraycopy(data, (block-1)*511, result, 4, length%totalBlockes);
+			System.arraycopy(data, (block-1)*511, result, 4, length%512+1);
 		}
 		else{
 			
 		opcode=opcodeEncoder(dataOpcode);
 		System.arraycopy(opcode, 0, result, 0, 2);
 		System.arraycopy(currentBlockNumber, 0, result, 2, 2);
-		
-		System.arraycopy(data, (block-1)*511, result, 4, 512);
+		System.arraycopy(data, (block-1)*512, result, 4, 512);
+		//System.arraycopy(src, srcPos, dest, destPos, length);
 		}
 		return result;
 	}
@@ -139,7 +140,7 @@ public int byteToInt(byte[] value){
 			 byte[]  tempData=new byte[(int)file.length()];
 			input=new FileInputStream(file);
 			input.read(tempData);
-			writeToFile(tempData, fileName);	//Checking purposes
+			//writeToFile(tempData, fileName);	//Checking purposes
 			input.close();
 			return tempData;
 			
