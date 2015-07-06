@@ -21,8 +21,6 @@ public class putState implements TFTPClientState {
 	boolean firstTime = true;
 	boolean lastpack = false;
 	private int serverPort = 0;
-	private boolean sent = true;
-
 	private byte[] currentBlockNumber = new byte[2];
 	// objects
 	Scanner scanner = new Scanner(System.in);

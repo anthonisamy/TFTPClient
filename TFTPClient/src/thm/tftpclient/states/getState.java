@@ -3,7 +3,6 @@ package thm.tftpclient.states;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 import java.util.Scanner;
 
@@ -15,7 +14,6 @@ import thm.tftpclient.state.TFTPClientState;
 public class getState implements TFTPClientState {
 	TFTPClient tftpClient;
 	private String fileName = null;
-	private String ipAddress=null;
 	private static final int opcode = 1;
 	DatagramSocket SOCKET;
 	SocketClient mySockClient;

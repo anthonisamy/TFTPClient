@@ -6,8 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import thm.tftpclient.context.TFTPClient;
-
 public class MessageCreateor {
 	private static String mode="Octet";
 	private static final int ackOpcode=4;
@@ -100,14 +98,7 @@ public class MessageCreateor {
 		byte data [] = readFromFile(fileName);
 		byte[] result;
 		int length=data.length;
-		int totalBlocks=(length/512)+1;
-		int lastBlock = totalBlocks;
-		/*if(totalBlocks>65535)
-		{
-			lastBlock = totalBlocks%65535;
-		}*/
-		int reserveBlocks=length%512;
-		
+		int totalBlocks=(length/512)+1;		
 		int block = byteToInt(currentBlockNumber);
 		if(block==totalBlocks){
 			result=new byte[4+length%512];
