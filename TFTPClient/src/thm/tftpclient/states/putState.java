@@ -38,7 +38,7 @@ public class putState implements TFTPClientState {
 		currentBlockNumber[0] = 0;
 		System.out.println("Enter a file Name to upload:");
 		fileName = scanner.nextLine();
-		MessageCreateor.checkFileExists(fileName);
+		MessageCreateor.checkFileExistsToRead(fileName);
 		message = MessageCreateor.createRequestMessage(fileName, opcodeInt);
 		mySockClient = new SocketClient();
 		mySockClient.sendToServer(message, 69);
@@ -95,13 +95,6 @@ public class putState implements TFTPClientState {
 					if (RCVBUFFER != null) {
 						int opcode = RCVBUFFER[1];
 						switch (opcode) {
-						case 1:
-							break;
-
-						case 2:
-							break;
-
-						// ACK
 
 						case 4:
 							String input = "yes";
@@ -110,13 +103,13 @@ public class putState implements TFTPClientState {
 									&& firstTime) {
 								firstTime = false;
 								System.out.println("The ACK is Received");
-								System.out.println("ACK:" + RCVBUFFER);
+								System.out.println("ACK packet: " + RCVBUFFER);
 								System.out.println("Data Block 1 is created:"
 										+ messageCreator.createDataPacket(
 												fileName, MessageCreateor
 														.opcodeEncoder(1)));
 								System.out
-										.println("Do you want to continue? yes/no");
+										.println("Do you want to continue? (YES/NO)");
 
 								input = scanner.nextLine();
 							}
@@ -138,7 +131,8 @@ public class putState implements TFTPClientState {
 
 						// ERROR
 						case 5:
-							System.err.println(RCVBUFFER+":Packet is recived with Following:");
+							System.err.println(RCVBUFFER
+									+ ":Packet is recived with Following:");
 							messageCreator.handleError(RCVBUFFER);
 							tftpClient.setCurrentState(tftpClient
 									.getErrorState());
@@ -153,7 +147,10 @@ public class putState implements TFTPClientState {
 
 			}
 		} catch (Exception ex) {
-
+			System.err.println("The follwoing error occured!!");
+			System.err.println(ex.getMessage());
+			System.err.println("Program Terminated");
+			System.exit(0);
 		}
 	}
 

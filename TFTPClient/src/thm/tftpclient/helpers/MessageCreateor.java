@@ -3,7 +3,6 @@ package thm.tftpclient.helpers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class MessageCreateor {
 	private static String mode = "Octet";
@@ -87,10 +86,9 @@ public class MessageCreateor {
 		try {
 			File file = new File("E:\\tftpdownloads\\" + fileName);
 			out = new FileOutputStream(file, true);
-
 			out.write(data);
 			out.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.err.println("Following Error occured!!!");
 			System.err.println(e.getMessage());
 			System.err.println("Program terminated. Bye!");
@@ -156,7 +154,7 @@ public class MessageCreateor {
 		}
 
 	}
-	public static void checkFileExists(String fileName){
+	public static void checkFileExistsToRead(String fileName){
 		
 		try {
 			File file = new File("E:\\tftpuploads\\" + fileName);
@@ -174,6 +172,24 @@ public class MessageCreateor {
 			System.exit(0);
 			}
 		
+	}
+	public static void checkFileExistsToWrite(String fileName){
+		try {
+			File file = new File("E:\\tftpdownloads\\" + fileName);
+			if(file.exists())
+			{
+				System.err.println("Following Error occured!!!");
+				System.err.println("File already Exists Can't overwrite!!!");
+				System.err.println("Program terminated. Bye!");
+				System.exit(0);
+			}
+			
+		} catch (Exception e) {
+			System.err.println("Following Error occured!!!");
+			System.err.println(e.getMessage()+"Can't overwrite!!!");
+			System.err.println("Program terminated. Bye!");
+			System.exit(0);
+			}
 	}
 
 	public byte[] getBlockNum() {

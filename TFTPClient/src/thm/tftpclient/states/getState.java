@@ -39,10 +39,11 @@ public class getState implements TFTPClientState {
 		boolean lastpack = false;
 		System.out.println("Please enter the file Name:");
 		fileName = scanner.nextLine();
+		
 		message = MessageCreateor.createRequestMessage(fileName, opcode);
 		mySockClient = new SocketClient();
 		mySockClient.sendToServer(message, 69);
-		System.out.println("RRQ msg Created");
+		System.out.println("RRQ Message Sent!");
 		try {
 
 			while (!lastpack) {
@@ -90,7 +91,7 @@ public class getState implements TFTPClientState {
 				SOCKET.close();
 				if (RCVPACKET != null) {
 					serverPort = RCVPACKET.getPort();
-					System.out.println("packet received on port " + serverPort);
+					System.out.println("Packet received on port " + serverPort);
 					RCVBUFFER = RCVPACKET.getData();
 					if (RCVBUFFER != null) {
 						int opcode = RCVBUFFER[1];
@@ -114,13 +115,17 @@ public class getState implements TFTPClientState {
 									&& firstTime) {
 								firstTime = false;
 								System.out
-										.println("The First Block of data is Received and ack is created:");
-								System.out.println(RCVBUFFER);
-								System.out.println(ack);
+										.println("The first block of data is received and ACK is created:");
+								System.out.println("Received packet (1): "+RCVBUFFER);
+								System.out.println("Created ACK packet(1): "+ack);
 								System.out
 										.println("Do you want to continue?(YES/NO):");
 
 								input = scanner.nextLine();
+								if(input.equalsIgnoreCase("yes")){
+									MessageCreateor.checkFileExistsToWrite(fileName);	
+								}
+								
 								// message=ack;
 							}
 							if (input.equalsIgnoreCase("yes")) {
@@ -139,18 +144,11 @@ public class getState implements TFTPClientState {
 
 								// continue;
 							} else {
+								System.err.println("File Transfer Cancelled!!");
+								System.err.println("Program Terminated!!!");
 								System.exit(0);
 							}
-							// ask user whether u want to continue
-
-							// loop now for all the remaining data packets
-							// break;
-
-							// ACK
-							/*
-							 * case 4: messageCreator.handleAck(RCVBUFFER);
-							 * break; //ERROR
-							 */
+							
 						case 5:
 							System.err.println(RCVBUFFER+":Packet is recived with Following:");
 							messageCreator.handleError(RCVBUFFER);

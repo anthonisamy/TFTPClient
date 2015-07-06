@@ -26,11 +26,15 @@ public class errorState implements TFTPClientState {
 
 	@Override
 	public void handleError() {
-		System.err.println("Following Error Occured!!!!");
-		System.err.println("Error code: " + messageCreateor.getErrorCode()[0]
-				+ "" + messageCreateor.getErrorCode()[1]);
-		System.err.println("Error message: " + messageCreateor.getErrorMsg());
-		System.err.println("Program Terminated!!!!");
+		System.err.println("***********************************");
+		System.err.println("*\t\tERROR\t\t\t*");
+		System.err.println("***********************************");
+		System.err.println("* \tFollowing Error Occured!!!!\t ");
+		System.err.println("*\tError code: " + messageCreateor.getErrorCode()[0]
+				+ "" + messageCreateor.getErrorCode()[1]+"\t");
+		System.err.println("*\tError message: " + messageCreateor.getErrorMsg()+"\t");
+		System.err.println("*\t Program Terminated!!!!"+"\t ");
+		System.err.println("***********************************");
 		System.exit(0);
 
 	}
