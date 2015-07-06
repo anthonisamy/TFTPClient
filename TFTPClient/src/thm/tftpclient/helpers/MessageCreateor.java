@@ -2,7 +2,6 @@ package thm.tftpclient.helpers;
 
 import java.io.File;
 import java.io.FileInputStream;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -18,6 +17,7 @@ public class MessageCreateor {
 	private static String errorMsg = null;
 	private FileOutputStream out = null;
 	private FileInputStream input = null;
+	private static FileInputStream inputToCheck = null;
 	private byte[] ackNumber = null;
 
 	public static byte[] createRequestMessage(String fileName, int opcodeInt) {
@@ -118,7 +118,6 @@ public class MessageCreateor {
 			System.arraycopy(opcode, 0, result, 0, 2);
 			System.arraycopy(currentBlockNumber, 0, result, 2, 2);
 			System.arraycopy(data, (block - 1) * 512, result, 4, 512);
-			// System.arraycopy(src, srcPos, dest, destPos, length);
 		}
 		return result;
 	}
@@ -156,6 +155,25 @@ public class MessageCreateor {
 			return null;
 		}
 
+	}
+	public static void checkFileExists(String fileName){
+		
+		try {
+			File file = new File("E:\\tftpuploads\\" + fileName);
+			//byte[] tempData = new byte[(int) file.length()];
+			inputToCheck = new FileInputStream(file);
+			//inputToCheck.read(tempData);
+			// writeToFile(tempData, fileName); //Checking purposes
+			inputToCheck.close();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.err.println("Following Error occured!!!");
+			System.err.println(e.getMessage());
+			System.err.println("Program terminated. Bye!");
+			System.exit(0);
+			}
+		
 	}
 
 	public byte[] getBlockNum() {

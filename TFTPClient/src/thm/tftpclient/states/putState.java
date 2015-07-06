@@ -38,6 +38,7 @@ public class putState implements TFTPClientState {
 		currentBlockNumber[0] = 0;
 		System.out.println("Enter a file Name to upload:");
 		fileName = scanner.nextLine();
+		MessageCreateor.checkFileExists(fileName);
 		message = MessageCreateor.createRequestMessage(fileName, opcodeInt);
 		mySockClient = new SocketClient();
 		mySockClient.sendToServer(message, 69);
@@ -137,6 +138,7 @@ public class putState implements TFTPClientState {
 
 						// ERROR
 						case 5:
+							System.err.println(RCVBUFFER+":Packet is recived with Following:");
 							messageCreator.handleError(RCVBUFFER);
 							tftpClient.setCurrentState(tftpClient
 									.getErrorState());
