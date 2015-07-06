@@ -98,20 +98,26 @@ public class MessageCreateor {
 	}
 	public byte[] createDataPacket(String fileName,byte[] currentBlockNumber){
 		byte data [] = readFromFile(fileName);
-		byte[] result=new byte[516];
+		byte[] result;
 		int length=data.length;
-		int totalBlockes=(length/512)+1;
+		int totalBlocks=(length/512)+1;
+		int lastBlock = totalBlocks;
+		/*if(totalBlocks>65535)
+		{
+			lastBlock = totalBlocks%65535;
+		}*/
 		int reserveBlocks=length%512;
 		
 		int block = byteToInt(currentBlockNumber);
-		if(block==totalBlockes){
-			result=new byte[4+length%512+1];
+		if(block==totalBlocks){
+			result=new byte[4+length%512];
+			opcode=opcodeEncoder(dataOpcode);
 			System.arraycopy(opcode, 0, result, 0, 2);
 			System.arraycopy(currentBlockNumber, 0, result, 2, 2);
-			System.arraycopy(data, (block-1)*511, result, 4, length%512+1);
+			System.arraycopy(data, (block-1)*512, result, 4, length%512);
 		}
 		else{
-			
+			result=new byte[4+512];
 		opcode=opcodeEncoder(dataOpcode);
 		System.arraycopy(opcode, 0, result, 0, 2);
 		System.arraycopy(currentBlockNumber, 0, result, 2, 2);
