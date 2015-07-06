@@ -45,46 +45,50 @@ public class putState implements TFTPClientState {
 		try {
 			while (!lastpack) {
 
-				SOCKET = mySockClient.getSOCKET2();//2034
-				DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER, RCVBUFFER.length);
+				SOCKET = mySockClient.getSOCKET2();// 2034
+				DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
+						RCVBUFFER.length);
 				// SOCKET.receive(RCVPACKET);
-				for(int i=0;i<3;i++){
+				for (int i = 0; i < 3; i++) {
 					SOCKET.setSoTimeout(5000);
-					
-						try {
-							
-							SOCKET.receive(RCVPACKET);
-							break;
-							
-						} catch (SocketTimeoutException ex) {
-							System.out.println("Timeout occur!");
-							if (messageCreator.byteToInt(currentBlockNumber) == 0) {
-								mySockClient.sendToServer(message, 69);
-								mySockClient.getSOCKET2().close();
-							} else {
-								SOCKET.close();
-								SNDBUFFER = messageCreator.createDataPacket(fileName, currentBlockNumber);
-								mySockClient.sendToServer(SNDBUFFER, serverPort);
-								System.out.println("Packet resent!");
-								SOCKET=mySockClient.getSOCKET2();
-								System.out.println("Connection open again!");
-							}
 
-							if(i==2){
-								System.out.println("Timeout exceeded. Program terminated.");
-								System.exit(0);
-							}
+					try {
+
+						SOCKET.receive(RCVPACKET);
+						break;
+
+					} catch (SocketTimeoutException ex) {
+						System.out.println("Timeout occur!");
+						if (messageCreator.byteToInt(currentBlockNumber) == 0) {
+							mySockClient.sendToServer(message, 69);
+							mySockClient.getSOCKET2().close();
+						} else {
+							SOCKET.close();
+							SNDBUFFER = messageCreator.createDataPacket(
+									fileName, currentBlockNumber);
+							mySockClient.sendToServer(SNDBUFFER, serverPort);
+							System.out.println("Packet resent!");
+							SOCKET = mySockClient.getSOCKET2();
+							System.out.println("Connection open again!");
 						}
-					
+
+						if (i == 2) {
+							System.out
+									.println("Timeout exceeded. Program terminated.");
+							System.exit(0);
+						}
+					}
+
 				}
-				
+
 				SOCKET.close();
 				if (RCVPACKET != null) {
 					serverPort = RCVPACKET.getPort();
-					/*if(serverPort==-1){
-						tftpClient.setCurrentState(tftpClient.getErrorState());
-						break;
-					}*/
+					/*
+					 * if(serverPort==-1){
+					 * tftpClient.setCurrentState(tftpClient.getErrorState());
+					 * break; }
+					 */
 					System.out.println("ACK received from port " + serverPort);
 					RCVBUFFER = RCVPACKET.getData();
 					if (RCVBUFFER != null) {
@@ -95,28 +99,35 @@ public class putState implements TFTPClientState {
 
 						case 2:
 							break;
-						
+
 						// ACK
 
 						case 4:
 							String input = "yes";
 							byte[] SNDBUFFER = null;
-							if (messageCreator.byteToInt(currentBlockNumber) == 0 && firstTime) {
+							if (messageCreator.byteToInt(currentBlockNumber) == 0
+									&& firstTime) {
 								firstTime = false;
-								System.out.println("The ACK is Received and first block of data is created:");
-								System.out.println("ACK" + RCVBUFFER);
-								System.out.println("Data Block 1"
-										+ messageCreator.createDataPacket(fileName, MessageCreateor.opcodeEncoder(1)));
-								System.out.println("Do you want to continue? yes/no");
+								System.out.println("The ACK is Received");
+								System.out.println("ACK:" + RCVBUFFER);
+								System.out.println("Data Block 1 is created:"
+										+ messageCreator.createDataPacket(
+												fileName, MessageCreateor
+														.opcodeEncoder(1)));
+								System.out
+										.println("Do you want to continue? yes/no");
 
 								input = scanner.nextLine();
 							}
 							if (input.equalsIgnoreCase("yes")) {
 
-								currentBlockNumber = messageCreator.increment(currentBlockNumber);
-								SNDBUFFER = messageCreator.createDataPacket(fileName, currentBlockNumber);
+								currentBlockNumber = messageCreator
+										.increment(currentBlockNumber);
+								SNDBUFFER = messageCreator.createDataPacket(
+										fileName, currentBlockNumber);
 
-								mySockClient.sendToServer(SNDBUFFER, serverPort);
+								mySockClient
+										.sendToServer(SNDBUFFER, serverPort);
 								if (SNDBUFFER.length < 516) {
 									lastpack = true;
 									SOCKET.close();
@@ -127,7 +138,8 @@ public class putState implements TFTPClientState {
 						// ERROR
 						case 5:
 							messageCreator.handleError(RCVBUFFER);
-							tftpClient.setCurrentState(tftpClient.getErrorState());
+							tftpClient.setCurrentState(tftpClient
+									.getErrorState());
 							lastpack = true;
 							break;
 
@@ -154,7 +166,5 @@ public class putState implements TFTPClientState {
 		// TODO Auto-generated method stub
 
 	}
-
-	
 
 }

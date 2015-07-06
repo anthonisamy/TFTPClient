@@ -18,24 +18,29 @@ public class TFTPClient {
 		readyState = new readyState(this);
 		getState = new getState(this);
 		putState = new putState(this);
-		errorState=new errorState(this);
-		
-		clientState=readyState;
+		errorState = new errorState(this);
+
+		clientState = readyState;
 
 	}
-	public void download(){
+
+	public void download() {
 		clientState.download();
 	}
-	public void upload(){
+
+	public void upload() {
 		clientState.upload();
 	}
-	public void handleError(){
+
+	public void handleError() {
 		clientState.handleError();
 	}
+
 	public void setCurrentState(TFTPClientState clientState) {
 		this.clientState = clientState;
 	}
-	public TFTPClientState getCurrentState(){
+
+	public TFTPClientState getCurrentState() {
 		return clientState;
 	}
 
@@ -54,7 +59,5 @@ public class TFTPClient {
 	public TFTPClientState getErrorState() {
 		return errorState;
 	}
-	
 
-	
 }

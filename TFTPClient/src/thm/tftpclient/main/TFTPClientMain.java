@@ -3,40 +3,51 @@ package thm.tftpclient.main;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import thm.tftpclient.context.TFTPClient;
 import thm.tftpclient.helpers.SocketClient;
 
 public class TFTPClientMain {
 
 	public static void main(String[] args) {
+		System.out
+				.println("=========================================================================================================");
+		System.out
+				.println("*********************************************************************************************************");
+		System.out.println("||\t\t\t\t\t\t\t\t\t\t\t\t\t||");
+		System.out.println("||\t\t\t\t\t\tTFTP CLIENT\t\t\t\t\t\t||");
+		System.out.println("||\t\t\t\t\t\t\t\t\t\t\t\t\t||");
+		System.out.println("||\t\t\t\t\t\t\t\t\t\t\t\t\t||");
+		System.out
+				.println("*********************************************************************************************************");
+		System.out
+				.println("=========================================================================================================");
+
 		BufferedReader bufferread = new BufferedReader(new InputStreamReader(
 				System.in));
-		SocketClient SOCK=new SocketClient();
-		String choice="yes";
-			while (choice.equalsIgnoreCase("yes")) {
+		SocketClient SOCK = new SocketClient();
+		String choice = "yes";
+		while (choice.equalsIgnoreCase("yes")) {
 			TFTPClient tftpClient = new TFTPClient();
 
-			System.out.println("What you want to do? get/put");
+			System.out.println("Choose Your Action:(GET/PUT):");
 			try {
 				String input = bufferread.readLine();
 				if (input.equalsIgnoreCase("get")) {
-					{tftpClient.download();
-					
+					{
+						tftpClient.download();
+
 					}
 					if (tftpClient.getCurrentState() == tftpClient
-							.getErrorState()) 
-					{
+							.getErrorState()) {
 						tftpClient.handleError();
 					}
 
 					else {
-						System.out
-						.println("download Sucessfull!");
+						System.out.println("download Sucessfull!");
 
 						System.out
-								.println("Do you want to Take Another Action?yes/no");
-						choice= bufferread.readLine();
+								.println("Do you want to Take Another Action?(YES/NO):");
+						choice = bufferread.readLine();
 						SOCK.getSOCKET2().close();
 					}
 
@@ -50,10 +61,10 @@ public class TFTPClientMain {
 					else {
 
 						System.out
-								.println("Upload Sucessfull! Do you want to Take Another Action?yes/no");
+								.println("Upload Sucessfull! Do you want to Take Another Action?(YES/NO):");
 						choice = bufferread.readLine();
 						SOCK.getSOCKET2().close();
-						
+
 					}
 				}
 			} catch (IOException e) {

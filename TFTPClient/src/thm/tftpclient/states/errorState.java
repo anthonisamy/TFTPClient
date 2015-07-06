@@ -4,12 +4,12 @@ import thm.tftpclient.context.TFTPClient;
 import thm.tftpclient.helpers.MessageCreateor;
 import thm.tftpclient.state.TFTPClientState;
 
-
 public class errorState implements TFTPClientState {
 	TFTPClient tftpClient;
-	MessageCreateor messageCreateor=new MessageCreateor();
+	MessageCreateor messageCreateor = new MessageCreateor();
+
 	public errorState(TFTPClient client) {
-		tftpClient=client;
+		tftpClient = client;
 	}
 
 	@Override
@@ -26,13 +26,13 @@ public class errorState implements TFTPClientState {
 
 	@Override
 	public void handleError() {
-		System.out.println("Error code: "+messageCreateor.getErrorCode()[0]+""+messageCreateor.getErrorCode()[1]);
-		//System.out.println("Error code: "+messageCreateor.byteToInt(messageCreateor.getErrorCode()));
-		System.out.println("Error message: "+messageCreateor.getErrorMsg());
+		System.err.println("Following Error Occured!!!!");
+		System.err.println("Error code: " + messageCreateor.getErrorCode()[0]
+				+ "" + messageCreateor.getErrorCode()[1]);
+		System.err.println("Error message: " + messageCreateor.getErrorMsg());
+		System.err.println("Program Terminated!!!!");
 		System.exit(0);
 
 	}
-
-	
 
 }
