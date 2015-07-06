@@ -26,8 +26,9 @@ public class errorState implements TFTPClientState {
 
 	@Override
 	public void handleError() {
+		System.err.println("TFTP CLIENT IS IN ERROR STATE");
 		System.err.println("***********************************");
-		System.err.println("*\t\tERROR\t\t\t*");
+		System.err.println("*\t\tERROR\t\t\t");
 		System.err.println("***********************************");
 		System.err.println("* \tFollowing Error Occured!!!!\t ");
 		System.err.println("*\tError code: " + messageCreateor.getErrorCode()[0]

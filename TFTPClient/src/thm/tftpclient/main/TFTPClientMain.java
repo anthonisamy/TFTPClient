@@ -48,6 +48,10 @@ public class TFTPClientMain {
 						System.out
 								.println("Do you want to Take Another Action?(YES/NO):");
 						choice = bufferread.readLine();
+						if(choice.equalsIgnoreCase("no")){
+							System.err.println("Program Terminated With Your Choice[NO]");
+							System.exit(0);
+						}
 						SOCK.getSOCKET2().close();
 					}
 
@@ -63,6 +67,10 @@ public class TFTPClientMain {
 						System.out
 								.println("Upload Sucessfull! Do you want to Take Another Action?(YES/NO):");
 						choice = bufferread.readLine();
+						if(choice.equalsIgnoreCase("no")){
+							System.err.println("Program Terminated With Your Choice[NO]");
+							System.exit(0);
+						}
 						SOCK.getSOCKET2().close();
 
 					}

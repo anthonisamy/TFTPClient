@@ -1,6 +1,5 @@
 package thm.tftpclient.helpers;
 
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -17,10 +16,11 @@ public class SocketClient {
 					BUFFER.length, IP, port);
 			SOCKET2.send(SNDPACKET);
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.err.println("Following Error Occured!!!");
+			System.err.println(e.getMessage()+"\t Did Not Respond!!!");
 			System.err.println("Program Terminated!");
-			System.err.println(e.getMessage());
+			
 			System.exit(0);
 		}
 	}
