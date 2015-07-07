@@ -50,8 +50,8 @@ public class putState implements TFTPClientState {
 				DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
 						RCVBUFFER.length);
 				// SOCKET.receive(RCVPACKET);
-				for (int i = 0; i < 3; i++) {
-					SOCKET.setSoTimeout(5000);
+				for (int i = 0; i < 6; i++) {
+					SOCKET.setSoTimeout(3000);
 
 					try {
 
@@ -73,7 +73,7 @@ public class putState implements TFTPClientState {
 							System.out.println("Connection open again!");
 						}
 
-						if (i == 2) {
+						if (i == 5) {
 							System.out
 									.println("Timeout exceeded. Program terminated.");
 							System.exit(0);
@@ -85,11 +85,6 @@ public class putState implements TFTPClientState {
 				SOCKET.close();
 				if (RCVPACKET != null) {
 					serverPort = RCVPACKET.getPort();
-					/*
-					 * if(serverPort==-1){
-					 * tftpClient.setCurrentState(tftpClient.getErrorState());
-					 * break; }
-					 */
 					System.out.println("ACK received from port " + serverPort);
 					RCVBUFFER = RCVPACKET.getData();
 					if (RCVBUFFER != null) {
@@ -102,6 +97,7 @@ public class putState implements TFTPClientState {
 							if (messageCreator.byteToInt(currentBlockNumber) == 0
 									&& firstTime) {
 								firstTime = false;
+								System.out.println("Write Request Message:"+message);
 								System.out.println("The ACK is Received");
 								System.out.println("ACK packet: " + RCVBUFFER);
 								System.out.println("Data Block 1 is created:"

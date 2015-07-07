@@ -1,6 +1,5 @@
 package thm.tftpclient.states;
 
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketTimeoutException;
@@ -49,15 +48,11 @@ public class getState implements TFTPClientState {
 			while (!lastpack) {
 
 				SOCKET = mySockClient.getSOCKET2();
-				/*
-				 * if(SOCKET.isConnected()) {
-				 * System.out.println("Socket again connected"+
-				 * SOCKET.getPort()); } //SOCKET.setSoTimeout(300*10);
-				 */
+			
 				DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
 						RCVBUFFER.length);
-				for (int i = 0; i < 3; i++) {
-					SOCKET.setSoTimeout(5000);
+				for (int i = 0; i < 6; i++) {
+					SOCKET.setSoTimeout(3000);
 
 					try {
 
@@ -78,7 +73,7 @@ public class getState implements TFTPClientState {
 							System.out.println("Packet resent!");
 							SOCKET = mySockClient.getSOCKET2();
 						}
-						if (i == 2) {
+						if (i == 5) {
 							System.err.println("Timeout Exceeded!");
 							System.err
 									.println("The program is terminated. Bye!");
@@ -116,6 +111,7 @@ public class getState implements TFTPClientState {
 								firstTime = false;
 								System.out
 										.println("The first block of data is received and ACK is created:");
+								System.out.println("Read Request Message: "+message);
 								System.out.println("Received packet (1): "+RCVBUFFER);
 								System.out.println("Created ACK packet(1): "+ack);
 								System.out
@@ -165,7 +161,7 @@ public class getState implements TFTPClientState {
 
 			}
 
-		} catch (IOException ex) {
+		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
 			System.err.println("Program Terminated!");
 			System.exit(0);
@@ -177,34 +173,4 @@ public class getState implements TFTPClientState {
 	public void handleError() {
 
 	}
-
-	/*
-	 * public byte[] createRequestPacket() {
-	 * System.out.println("Please enter the file Name:");
-	 * fileName=scanner.nextLine(); System.out.println("hey baby"); message =
-	 * MessageCreateor.createRequestMessage(fileName, opcode);
-	 * 
-	 * try { mySockClient = new SocketClient(); SOCKET =
-	 * mySockClient.CreateConnection(); // DatagramPacket SNDPACKET = new
-	 * DatagramPacket(message, message.length);
-	 * 
-	 * SOCKET.send(SNDPACKET); //SOCKET.setSoTimeout(3000); DatagramPacket
-	 * RCVPACKET = new DatagramPacket(RCVBUFFER, RCVBUFFER.length);
-	 * SOCKET.receive(RCVPACKET); if (RCVPACKET != null) { RCVBUFFER =
-	 * RCVPACKET.getData(); if (RCVBUFFER != null) { int opcode = RCVBUFFER[1];
-	 * switch (opcode) { case 1: break;
-	 * 
-	 * case 2: break; //Data case 3: System.out.println("hello");
-	 * messageCreator.processData(RCVBUFFER); break; //ACK case 4:
-	 * messageCreator.handleAck(RCVBUFFER); break; //ERROR case 5:
-	 * messageCreator.handleError(RCVBUFFER);
-	 * tftpClient.setCurrentState(tftpClient.getErrorState()); break; default:
-	 * break; } } }
-	 * 
-	 * } catch (IOException ex) { System.err.println(ex.getMessage()); } return
-	 * RCVBUFFER;
-	 * 
-	 * }
-	 */
-
 }

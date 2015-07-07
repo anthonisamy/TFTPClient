@@ -28,7 +28,7 @@ public class TFTPClientMain {
 		String choice = "yes";
 		while (choice.equalsIgnoreCase("yes")) {
 			TFTPClient tftpClient = new TFTPClient();
-
+			System.out.println(tftpClient.getCurrentState());
 			System.out.println("Choose Your Action:(GET/PUT):");
 			try {
 				String input = bufferread.readLine();
