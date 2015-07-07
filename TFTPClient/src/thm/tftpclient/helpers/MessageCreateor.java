@@ -140,12 +140,10 @@ public class MessageCreateor {
 			byte[] tempData = new byte[(int) file.length()];
 			input = new FileInputStream(file);
 			input.read(tempData);
-			// writeToFile(tempData, fileName); //Checking purposes
 			input.close();
 			return tempData;
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.err.println("Following Error occured!!!");
 			System.err.println(e.getMessage());
 			System.err.println("Program terminated. Bye!");
@@ -158,14 +156,10 @@ public class MessageCreateor {
 		
 		try {
 			File file = new File("E:\\tftpuploads\\" + fileName);
-			//byte[] tempData = new byte[(int) file.length()];
 			inputToCheck = new FileInputStream(file);
-			//inputToCheck.read(tempData);
-			// writeToFile(tempData, fileName); //Checking purposes
 			inputToCheck.close();
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.err.println("Following Error occured!!!");
 			System.err.println(e.getMessage());
 			System.err.println("Program terminated. Bye!");

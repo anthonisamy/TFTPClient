@@ -28,7 +28,7 @@ public class TFTPClientMain {
 		String choice = "yes";
 		while (choice.equalsIgnoreCase("yes")) {
 			TFTPClient tftpClient = new TFTPClient();
-			System.out.println(tftpClient.getCurrentState());
+			System.out.println("Current State:"+tftpClient.getCurrentState());
 			System.out.println("Choose Your Action:(GET/PUT):");
 			try {
 				String input = bufferread.readLine();
@@ -52,6 +52,9 @@ public class TFTPClientMain {
 							System.err.println("Program Terminated With Your Choice[NO]");
 							System.exit(0);
 						}
+						else{
+							System.out.println("Enter YES/NO:");
+						}
 						SOCK.getSOCKET2().close();
 					}
 
@@ -70,6 +73,9 @@ public class TFTPClientMain {
 						if(choice.equalsIgnoreCase("no")){
 							System.err.println("Program Terminated With Your Choice[NO]");
 							System.exit(0);
+						}
+						else{
+							System.out.println("Enter YES/NO:");
 						}
 						SOCK.getSOCKET2().close();
 

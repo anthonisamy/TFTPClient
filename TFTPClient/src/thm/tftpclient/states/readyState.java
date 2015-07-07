@@ -26,8 +26,7 @@ public class readyState implements TFTPClientState {
 
 	@Override
 	public void handleError() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	

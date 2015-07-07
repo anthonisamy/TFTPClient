@@ -4,6 +4,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketTimeoutException;
 import java.util.Scanner;
+
 import thm.tftpclient.context.TFTPClient;
 import thm.tftpclient.helpers.MessageCreateor;
 import thm.tftpclient.helpers.SocketClient;
@@ -33,12 +34,12 @@ public class getState implements TFTPClientState {
 
 	@Override
 	public void download() {
-		// this.createRequestPacket();
 		boolean firstTime = true;
 		boolean lastpack = false;
+		System.out.println("Current State:" + tftpClient.getCurrentState());
 		System.out.println("Please enter the file Name:");
 		fileName = scanner.nextLine();
-		
+
 		message = MessageCreateor.createRequestMessage(fileName, opcode);
 		mySockClient = new SocketClient();
 		mySockClient.sendToServer(message, 69);
@@ -48,7 +49,7 @@ public class getState implements TFTPClientState {
 			while (!lastpack) {
 
 				SOCKET = mySockClient.getSOCKET2();
-			
+
 				DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
 						RCVBUFFER.length);
 				for (int i = 0; i < 6; i++) {
@@ -111,18 +112,21 @@ public class getState implements TFTPClientState {
 								firstTime = false;
 								System.out
 										.println("The first block of data is received and ACK is created:");
-								System.out.println("Read Request Message: "+message);
-								System.out.println("Received packet (1): "+RCVBUFFER);
-								System.out.println("Created ACK packet(1): "+ack);
+								System.out.println("Read Request Message: "
+										+ message);
+								System.out.println("Received packet (1): "
+										+ RCVBUFFER);
+								System.out.println("Created ACK packet(1): "
+										+ ack);
 								System.out
 										.println("Do you want to continue?(YES/NO):");
 
 								input = scanner.nextLine();
-								if(input.equalsIgnoreCase("yes")){
-									MessageCreateor.checkFileExistsToWrite(fileName);	
+								if (input.equalsIgnoreCase("yes")) {
+									MessageCreateor
+											.checkFileExistsToWrite(fileName);
 								}
-								
-								// message=ack;
+
 							}
 							if (input.equalsIgnoreCase("yes")) {
 
@@ -138,15 +142,15 @@ public class getState implements TFTPClientState {
 
 								break;
 
-								// continue;
 							} else {
 								System.err.println("File Transfer Cancelled!!");
 								System.err.println("Program Terminated!!!");
 								System.exit(0);
 							}
-							
+
 						case 5:
-							System.err.println(RCVBUFFER+":Packet is recived with Following:");
+							System.err.println(RCVBUFFER
+									+ ":Packet is recived with Following:");
 							messageCreator.handleError(RCVBUFFER);
 							tftpClient.setCurrentState(tftpClient
 									.getErrorState());

@@ -36,6 +36,7 @@ public class putState implements TFTPClientState {
 	public void upload() {
 		currentBlockNumber[0] = 0;
 		currentBlockNumber[0] = 0;
+		System.out.println("Current State:" + tftpClient.getCurrentState());
 		System.out.println("Enter a file Name to upload:");
 		fileName = scanner.nextLine();
 		MessageCreateor.checkFileExistsToRead(fileName);
@@ -49,7 +50,6 @@ public class putState implements TFTPClientState {
 				SOCKET = mySockClient.getSOCKET2();// 2034
 				DatagramPacket RCVPACKET = new DatagramPacket(RCVBUFFER,
 						RCVBUFFER.length);
-				// SOCKET.receive(RCVPACKET);
 				for (int i = 0; i < 6; i++) {
 					SOCKET.setSoTimeout(3000);
 
@@ -97,8 +97,8 @@ public class putState implements TFTPClientState {
 							if (messageCreator.byteToInt(currentBlockNumber) == 0
 									&& firstTime) {
 								firstTime = false;
-								System.out.println("Write Request Message:"+message);
-								System.out.println("The ACK is Received");
+								System.out.println("Write Request Message:"
+										+ message);
 								System.out.println("ACK packet: " + RCVBUFFER);
 								System.out.println("Data Block 1 is created:"
 										+ messageCreator.createDataPacket(
@@ -112,7 +112,7 @@ public class putState implements TFTPClientState {
 							if (input.equalsIgnoreCase("yes")) {
 
 								currentBlockNumber = messageCreator
-										.increment(currentBlockNumber);
+					 					.increment(currentBlockNumber);
 								SNDBUFFER = messageCreator.createDataPacket(
 										fileName, currentBlockNumber);
 
@@ -122,10 +122,14 @@ public class putState implements TFTPClientState {
 									lastpack = true;
 									SOCKET.close();
 								}
+								break;
+							} else {
+								System.err.println("File Transfer Cancelled!!");
+								System.err.println("Program Terminated!!!");
+								System.exit(0);
 							}
-							break;
 
-						// ERROR
+							// ERROR
 						case 5:
 							System.err.println(RCVBUFFER
 									+ ":Packet is recived with Following:");
