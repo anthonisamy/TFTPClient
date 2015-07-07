@@ -19,10 +19,8 @@ public class getState implements TFTPClientState {
 	private byte[] RCVBUFFER = new byte[516];
 	private int serverPort = 0;
 	Scanner scanner = new Scanner(System.in);
-
 	private byte[] message = new byte[512];
 	MessageCreateor messageCreator = new MessageCreateor();
-
 	public getState(TFTPClient client) {
 		tftpClient = client;
 	}

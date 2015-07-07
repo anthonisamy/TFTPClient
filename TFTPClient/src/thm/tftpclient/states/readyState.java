@@ -28,7 +28,4 @@ public class readyState implements TFTPClientState {
 	public void handleError() {
 		
 	}
-
-	
-
 }

@@ -3,7 +3,7 @@
   realizations="false" associations="false" dependencies="false" nesting-relationships="false">  
   <class id="1" language="java" name="thm.tftpclient.states.readyState" project="TFTPClient" 
     file="/TFTPClient/src/thm/tftpclient/states/readyState.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="371" y="127"/>    
+    <position height="-1" width="-1" x="424" y="390"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,8 +12,8 @@
   </class>  
   <class id="2" language="java" name="thm.tftpclient.states.putState" project="TFTPClient" 
     file="/TFTPClient/src/thm/tftpclient/states/putState.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="335" y="416"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="211" width="143" x="117" y="94"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="thm.tftpclient.states.errorState" project="TFTPClient" 
     file="/TFTPClient/src/thm/tftpclient/states/errorState.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="759" y="122"/>    
+    <position height="-1" width="-1" x="663" y="82"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="thm.tftpclient.states.getState" project="TFTPClient" 
     file="/TFTPClient/src/thm/tftpclient/states/getState.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="783" y="393"/>    
+    <position height="-1" width="-1" x="651" y="344"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <interface id="5" language="java" name="thm.tftpclient.state.TFTPClientState" project="TFTPClient" 
     file="/TFTPClient/src/thm/tftpclient/state/TFTPClientState.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="544" y="114"/>    
+    <position height="-1" width="-1" x="398" y="242"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </interface>  
   <class id="6" language="java" name="thm.tftpclient.main.TFTPClientMain" project="TFTPClient" 
     file="/TFTPClient/src/thm/tftpclient/main/TFTPClientMain.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="225" y="103"/>    
+    <position height="-1" width="-1" x="187" y="38"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,8 +57,8 @@
   </class>  
   <class id="7" language="java" name="thm.tftpclient.helpers.SocketClient" project="TFTPClient" 
     file="/TFTPClient/src/thm/tftpclient/helpers/SocketClient.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="329" y="700"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="116" width="184" x="330" y="483"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -66,8 +66,8 @@
   </class>  
   <class id="8" language="java" name="thm.tftpclient.helpers.MessageCreateor" project="TFTPClient" 
     file="/TFTPClient/src/thm/tftpclient/helpers/MessageCreateor.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="581" y="885"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="330" width="235" x="71" y="321"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -75,17 +75,100 @@
   </class>  
   <class id="9" language="java" name="thm.tftpclient.context.TFTPClient" project="TFTPClient" 
     file="/TFTPClient/src/thm/tftpclient/context/TFTPClient.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="556" y="384"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="173" width="214" x="304" y="-21"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+  <association id="10">    
+    <bendpoint x="569" y="535"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="11" name="mySockClient"/>      
+      <multiplicity id="12" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="13">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <association id="14">    
+    <bendpoint x="748" y="159"/>    
+    <bendpoint x="752" y="658"/>    
+    <bendpoint x="558" y="642"/>    
+    <bendpoint x="303" y="641"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="15" name="messageCreateor"/>      
+      <multiplicity id="16" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="17">    
+    <bendpoint x="62" y="207"/>    
+    <bendpoint x="63" y="374"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="18" name="messageCreator"/>      
+      <multiplicity id="19" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="20">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <association id="21">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="22" name="readyState"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="24">    
+    <bendpoint x="321" y="292"/>    
+    <bendpoint x="321" y="470"/>    
+    <bendpoint x="321" y="497"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="25" name="mySockClient"/>      
+      <multiplicity id="26" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="27">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <association id="28">    
+    <bendpoint x="609" y="617"/>    
+    <bendpoint x="417" y="615"/>    
+    <bendpoint x="296" y="614"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="29" name="messageCreator"/>      
+      <multiplicity id="30" minimum="0" maximum="1">        
+        <position height="16" width="23" x="303" y="591"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="31">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <realization id="32">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
   <classifier-display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
     <operations public="true" package="true" protected="true" private="true" static="true"/>  
   </classifier-display>  
-  <association-display labels="false" multiplicity="true"/>
+  <association-display labels="true" multiplicity="true"/>
 </class-diagram>
